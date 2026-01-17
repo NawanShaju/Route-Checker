@@ -1,5 +1,8 @@
 from cli.interactive import userQuaries
 import sys
+from pathlib import Path
+
+from core.backend_scanner.ScannerFactory import ScannerFactory
 
 def app():
     
@@ -9,14 +12,14 @@ def app():
     try:
         result = userQuaries()
     except:
-        print("The quaring has failed please run the code again.")
+        print("The quaring has failed please try again.")
         sys.exit(1)
         
     
     backend = result['backend']
     frontend = result['frontend']
     
-    
-    print(backend)
-    print(frontend)
+    files = [Path(".")]
+    backendFramework = ScannerFactory().get_strategy(backend, files)
+    print(backendFramework.name)
     
