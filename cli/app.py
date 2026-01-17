@@ -21,13 +21,9 @@ def app():
         backend = result['backend']
         frontend = result['frontend']
     
-    backend = result['backend']
-    frontend = result['frontend']
-    
     root = Path(".")
     files = get_code_files(root)
-    print(files)
     
     backendFramework = ScannerFactory().get_strategy(backend, files)
-    print(backendFramework.name)
+    print(backendFramework.name, backend)
     
