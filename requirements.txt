@@ -1,0 +1,18 @@
+# CLI framework
+typer>=0.9.0
+
+# Arrow-key interactive prompts (Vite-style)
+InquirerPy>=0.3.4
+
+# Rich terminal output (colors, tables, icons)
+rich>=13.6.0
+
+# JavaScript / TypeScript AST parsing
+tree-sitter>=0.21.0
+tree-sitter-languages>=1.10.2
+
+# Config validation (optional but recommended)
+pydantic>=2.5.0
+
+# --- Dev / Testing ---
+pytest>=7.4.0
