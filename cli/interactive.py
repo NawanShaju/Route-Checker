@@ -1,7 +1,6 @@
 from InquirerPy import prompt
 from InquirerPy.base.control import Choice
 
-
 def userQuaries():
     questions = [
         {
@@ -26,3 +25,16 @@ def userQuaries():
     ]
 
     return prompt(questions)
+
+def detectFramework():
+
+    questions = [
+        {
+            "type": "confirm",
+            "message": "Do you know which frameworks you are using",
+            "name": "detect",
+            "default": True,
+        },
+    ]
+
+    return prompt(questions)["detect"]
