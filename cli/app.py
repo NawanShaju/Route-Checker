@@ -1,6 +1,7 @@
 from cli.interactive import userQuaries
 import sys
 from pathlib import Path
+from utils.files_utils import get_code_files
 
 from core.backend_scanner.ScannerFactory import ScannerFactory
 
@@ -19,7 +20,10 @@ def app():
     backend = result['backend']
     frontend = result['frontend']
     
-    files = [Path(".")]
+    root = Path(".")
+    files = get_code_files(root)
+    print(files)
+        
     backendFramework = ScannerFactory().get_strategy(backend, files)
     print(backendFramework.name)
     
