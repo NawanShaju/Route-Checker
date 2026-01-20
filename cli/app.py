@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from utils.files_utils import get_code_files
 from core.backend_scanner.ScannerFactory import ScannerFactory
+from core.backend_scanner.RouteScannerStrategy import Route, RouteScannerStrategy
 
 def app():
     print("Welcome to Route Scanner.")
@@ -24,6 +25,8 @@ def app():
     root = Path(".")
     files = get_code_files(root)
     
-    backendFramework = ScannerFactory().get_strategy(backend, files)
-    print(backendFramework.name, backend)
+    backendFramework: RouteScannerStrategy = ScannerFactory().get_strategy(backend, files)
+    paths: list[Route] = backendFramework.scan()
     
+    for path in paths:
+        print(f"Method: {path.method}, Path: {path.path}, File: {path.file}")
