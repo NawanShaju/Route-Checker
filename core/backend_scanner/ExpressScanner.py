@@ -40,7 +40,7 @@ class ExpressScanner(RouteScannerStrategy):
         current_file = Path(server_file)
         
         if server_name is not None:
-            regix = fr'{server_name}.use\("(/\w*)", (\w*)\);'
+            regix = fr'{server_name}.use\(["\'](/\w*)["\'], (\w*)\);'
             if routes_matchs := re.findall(regix, text):
                 paths = self.__find_path_in_router(routes_matchs, current_file, text)
                 
@@ -55,14 +55,14 @@ class ExpressScanner(RouteScannerStrategy):
             route_path = routes[0]
             route_name = routes[1]
             
-            regix = fr'import {route_name} from "\./(.*)"'
+            regix = fr'import {route_name} from ["\']\./(.*)["\']'
             if route_files := re.search(regix, file_text):
                 route_files = current_file.parent / route_files[1]
                 try:
                     with open(route_files) as route_file:
                         text = route_file.read()
                         
-                    route_regix = fr'.*\.(get|post|put|delete|patch)\(\"(.*)\", \w*\);'
+                    route_regix = fr'.*\.(get|post|put|delete|patch)\(["\'](.*)["\'], \w*\);'
                     
                     if matchs := re.findall(route_regix, text):
                         for m in matchs:
@@ -79,7 +79,7 @@ class ExpressScanner(RouteScannerStrategy):
     
     
     def __find_path_in_server(self, paths, server_name, server_text, server_path) -> list[Route]: 
-        route_in_server_regix = fr'{server_name}\.(get|post|put|delete|patch)\(\"(.*)\", .*'
+        route_in_server_regix = fr'{server_name}\.(get|post|put|delete|patch)\(["\'](.*)["\'], .*'
         
         if match := re.findall(route_in_server_regix, server_text):
             for m in match:
